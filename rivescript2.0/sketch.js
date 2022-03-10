@@ -3,9 +3,10 @@ let submitBttn, inputField, viewButton;
 var strum = 0.5;
 
 let frame;
+//let points = '0';
 
 let shapes = [];
-let resp = 'Hey!';
+let resp = 'start interaction with a greeting';
 
 function preload() {
   bot.loadFile("bot.txt").then(loaded).catch(error);
@@ -34,6 +35,8 @@ function draw() {
   fill(0);
   background(237, 218, 202);
   text(resp, 250,145, 200,100);
+  //bot.reply("local-user", 'points').then(respond1)
+  //text(points, width-200,200);
   if (resp.includes("i see now") || resp.includes("call the met!")){
     viewButton.show();
     noLoop()
@@ -50,6 +53,7 @@ function drawFinalPainting(){
   //noLoop();
   console.log('in')
   fill(0);
+  strokeWeight(2);
   //background(237, 218, 202);
   for (let i = 0; i< height; i+=20){
     drawCurve(i);
@@ -63,6 +67,17 @@ function drawFinalPainting(){
       rect(shapes[i][1],shapes[i][2],
         shapes[i][3],shapes[i][4]);
   }
+  push()
+  blendMode(LIGHTEST);
+  noStroke();
+  let colors = ['#fc035e','#5c52a1','#c4661d','#ff549e','#fc035e','#5c52a1','#c4661d','#ff549e']
+  for(let i = 0; i<6; i++){
+    fill(colors[i]);
+    ellipse(random(width), random(height), 400,400);
+  }
+  ellipse(random(width), random(height), 400,400);
+  pop();
+
   image(frame, 0,0, width, height);
 }
 
@@ -91,6 +106,9 @@ function createShape(){
    pushShapes(floor(random(2)));
    pushShapes(floor(random(2)));
    pushShapes(floor(random(2)));
+   pushShapes(floor(random(2)));
+   pushShapes(floor(random(2)));
+   pushShapes(floor(random(2)));
 }
 
 function botResponse(){
@@ -110,6 +128,10 @@ function respond(reply) {
   resp = reply;
 
 }
+
+// function respond1(reply){
+//   points = reply;
+// }
 
 function loaded() {
   bot.sortReplies();

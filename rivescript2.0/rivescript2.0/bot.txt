@@ -1,0 +1,96 @@
+! version = 2.0
+
+// Substitutions
+! sub i'm     = i am
+! sub i'd     = i would
+! sub i've    = i have
+! sub i'll    = i will
+! sub don't   = do not
+! sub isn't   = is not
+! sub you'd   = you would
+! sub you're  = you are
+! sub you've  = you have
+! sub you'll  = you will
+! sub what's  = what is
+! sub whats   = what is
+! sub what're = what are
+! sub what've = what have
+! sub what'll = what will
+! sub who's   = who is
+
++ points
+- <get points>
+
++[*] (hello|hey|howdy|sup) [*]
+- <set points=0> Hello! Welcome! What is your name? {topic=name}
+
+> topic name
++*
+- <set name=<star>> hi, <get name>.i am going to start rating how much i like you. right now youre at <get points>. do you like art? {topic=art}
+< topic
+> topic art
+	+[*](yes|of course|yeah|i do)[*]
+	- do you prefer high art or low art? {topic=artform}
+
+	+[*]no[*]
+	-that is so sad. get a life {topic=random}
+< topic
+>topic artform
++[*]high[*]
+-<add points=1> wonderful! that brings you to <get points>! what artform do you prefer?
+
++[*]low[*]
+-<sub points=1> oh, okay. you're now at <get points>. what artform do you like?
+
++ *
+- oh, i don't know that one. will you tell me a different artform?
+
++ [*](logic|rhetoric|grammar)[*]
+- <add points=10>you lie above your peers in every sense. your rating is now <get points>. are you an artist? {topic=areyou}
+
++ [*](painting|sculpting|architecture|debate)[*]
+- <add points=5>you are a critic, a tastemaker.your rating is now <get points>. are you also an artist? {topic=areyou}
+
++ [*](poetry|pottery|singing|literature|mosaics)[*]
+- <add points=2>you have exquisite taste. your rating is now <get points>. are you an artist? {topic=areyou}
+
++ [*](classical music|dance|drama|acting|calligraphy|glassblowing)[*]
+-<add points=1>wonderful choice. your rating is now at <get points>. tell me, are you an artist? {topic=areyou}
+
++ [*](photography|cinema|fashion design|fashion|cooking|filmmaking)[*]
+- <sub points=1>hmm. understandable, i suppose. your rating is now <get points>. are you an artist? {topic=areyou}
+
++ [*](graphic design|sound|television|knitting|embroidery)[*]
+- <sub points=2>i see. your rating is now <get points>. tell me, are you an artist? {topic=areyou}
+
++ [*](game design|graffiti|tattoo|comics|collage|animation)[*]
+- <sub points=5> i have made a deeper, worse conclusion regarding your character. i hate to ask this with fear of a...certain response...but are you an artist? unfortunately you now have a rating of <get points>.{topic=areyou}
+
++ [*](chatbot|creative coding)[*]
+- <sub points=100>imbecile. that is not art. do you even consider yourself an artist? you have a low rating <get points>.{topic=areyou}
+< topic
+>topic areyou
+
++ yes
+* <get points> > 0 => of course, i could tell. should we look at your painting? {topic=final}
+- interesting thing to say, given your score of <get points>. should we look at your painting? {topic=final}
+
++ no
+* <get points> > 0 => really?! im surprised! you have such good taste! you might want to consider. start with painting or marble sculpture, perhaps. should we look at your painting? {topic=final}
+- i think you must be mistaken. the data simply doesn't add up...i suppose we should still look at your painting? you only had <get points>.  {topic=final}
+< topic
+>topic final
+
++ *
+* <get points> > 0 => call the met! another work of art for its halls! i can't wait to see thing piece new years day on my annual trip to the met! you deserve acclaim! {topic=final}
+- what?! how can you still have made a painting! your score was too low! you only had <get points>. {topic=finaltwo}
+< topic
+>topic finaltwo
+
++*
+- i see now. there is no such thing as high or low art. the value that any artform has is that combined value that the artist and the audience applies to it. art is simply a combination of personal emotion and a desire made manifest, and within these simple parameters, everything created in love is art. what a beautiful world to inhabit. thank you for enlightening me. {topic=random}
+
+< topic
+
++ points
+- <get points>
